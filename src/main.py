@@ -1,23 +1,64 @@
 from kivy.app import App
-from kivy.uix.label import Label
 from kivy.core.window import Window
-
+from kivy.uix.label import Label
+from kivy.uix.button import Button
+from kivy.uix.anchorlayout import AnchorLayout
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.relativelayout import RelativeLayout
 import ctypes
 
 
 class MyApp(App):
     def build(self):
-        Window.size = (800, 600)  # Set window size
-        Window.borderless = False  # Ensure window has borders
-        Window.resizable = False  # Disable window resizing
-        self.title = "Fixed Size Kivy App"  # Set window title
+        Window.size = (400, 300)
+        Window.borderless = False
+        Window.resizable = False
+        self.title = "YimMenu Launchpad"
 
-        # Disable both the resize functionality and the maximize button (Windows specific)
-        self.disable_resize_and_maximize()
+        self.disable_resize_and_maximize()  # Call for window style
 
-        return Label(text="Fixed Size Window")
+        main_layout = BoxLayout(orientation="vertical")
+
+        # Title layout
+        title_lbl = Label(
+            text="YimMenu Launchpad",
+            font_size="28sp",
+            bold=True,
+            size_hint=(None, None),
+            size=(400, 50),
+            valign="top",
+            halign="center",
+        )
+
+        # Buttons layout
+        buttons_layout = RelativeLayout()
+        button1 = Button(
+            text="Update",
+            size_hint=(None, None),
+            size=(150, 50),
+            pos_hint={"center_x": 0.5},
+            y=Window.height / 2 - 150,  # Vertical align
+        )
+        button2 = Button(
+            text="Inject",
+            size_hint=(None, None),
+            size=(150, 50),
+            pos_hint={"center_x": 0.5},
+            y=Window.height / 2 - 225,  # Vertical align
+        )
+
+        # Add into layouts
+        main_layout.add_widget(title_lbl)
+        buttons_layout.add_widget(button1)
+        buttons_layout.add_widget(button2)
+        main_layout.add_widget(buttons_layout)
+
+        return main_layout
 
     def disable_resize_and_maximize(self):
+        """
+        This function is only to make the window not maximizable and resizable.
+        """
         hwnd = ctypes.windll.user32.GetActiveWindow()
         if hwnd:
             GWL_STYLE = -16
