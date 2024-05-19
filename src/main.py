@@ -3,7 +3,6 @@ from kivy.uix.label import Label
 from kivy.core.window import Window
 
 import ctypes
-from ctypes import wintypes
 
 
 class MyApp(App):
