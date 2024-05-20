@@ -5,7 +5,11 @@ from kivy.uix.button import Button
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.relativelayout import RelativeLayout
+from kivy.uix.popup import Popup
+from kivy.clock import mainthread
 import ctypes
+import threading
+import updater
 
 
 class MyApp(App):
@@ -47,6 +51,8 @@ class MyApp(App):
             y=Window.height / 2 - 225,  # Vertical align
         )
 
+        button1.bind(on_press=self.start_check_for_updates)
+
         # Add into layouts
         main_layout.add_widget(title_lbl)
         buttons_layout.add_widget(button1)
@@ -68,6 +74,41 @@ class MyApp(App):
             style &= ~WS_MAXIMIZEBOX  # Disable maximize button
             style &= ~WS_SIZEBOX  # Disable resizing through borders
             ctypes.windll.user32.SetWindowLongPtrW(hwnd, GWL_STYLE, style)
+
+    def start_check_for_updates(self, instance):
+        """
+        Start the update check in a new thread.
+        """
+        threading.Thread(target=self.check_for_updates).start()
+
+    def check_for_updates(self):
+        """
+        Check for updates and show a popup if everything is up-to-date.
+        """
+        if not updater.download_if_needed():
+            self.show_popup("Everything up-to-date")
+        else:
+            self.show_popup("Updated!")
+
+    @mainthread
+    def show_popup(self, message):
+        """
+        Display a popup with the given message.
+        """
+        popup_layout = BoxLayout(orientation="vertical", padding=5)
+        popup_label = Label(text=message, size_hint=(1, 0.8))
+        close_button = Button(text="Close", size_hint=(1, 0.5))
+        popup_layout.add_widget(popup_label)
+        popup_layout.add_widget(close_button)
+
+        popup = Popup(
+            title="Update Status",
+            content=popup_layout,
+            size_hint=(0.5, 0.5),
+            auto_dismiss=False,
+        )
+        close_button.bind(on_press=popup.dismiss)
+        popup.open()
 
 
 if __name__ == "__main__":
