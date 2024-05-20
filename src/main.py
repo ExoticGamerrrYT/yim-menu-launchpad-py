@@ -20,6 +20,7 @@ class MyApp(App):
         Window.borderless = False
         Window.resizable = False
         self.title = "YimMenu Launchpad"
+        self.icon = "./images/yim-logo.ico"
 
         self.disable_resize_and_maximize()  # Call for window style
 
@@ -89,9 +90,9 @@ class MyApp(App):
         Check for updates and show a popup if everything is up-to-date.
         """
         if not updater.download_if_needed():
-            self.show_popup("Everything up-to-date")
+            self.show_popup("Everything up-to-date!")
         else:
-            self.show_popup("Updated!")
+            self.show_popup("Updated and downloaded!")
 
     def start_injection(self, instance):
         """
