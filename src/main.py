@@ -2,7 +2,6 @@ from kivy.app import App
 from kivy.core.window import Window
 from kivy.uix.label import Label
 from kivy.uix.button import Button
-from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.popup import Popup
@@ -87,7 +86,7 @@ class MyApp(App):
 
     def check_for_updates(self):
         """
-        Check for updates and show a popup if everything is up-to-date.
+        Check for updates and show a popup if everything is up-to-date and if it updated it
         """
         if not updater.download_if_needed():
             self.show_popup("Everything up-to-date!")
@@ -101,13 +100,16 @@ class MyApp(App):
         threading.Thread(target=self.injection).start()
 
     def injection(self):
-        pid = injector.find_process_id(injector.PROCESS_NAME)
-        if pid == None:
+        """
+        This function calls the injector.py and its functions
+        """
+        pid = injector.find_process_id(injector.PROCESS_NAME)  # Get proc id
+        if pid == None:  # If there is no process called GTA5.exe
             self.show_popup("Couldn't find the process!")
             return
 
-        exotic_folder = updater.check_dirs()[0]
-        dll_file = os.path.join(exotic_folder, "YimMenu.dll")
+        exotic_folder = updater.check_dirs()[0]  # Get the folder
+        dll_file = os.path.join(exotic_folder, "YimMenu.dll")  # Make dll dir
         try:
             injector.inject_dll(pid, dll_file)
         except:
