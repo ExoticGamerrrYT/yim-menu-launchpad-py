@@ -59,7 +59,7 @@ def download_if_needed():
     previous_date = data["date"]
     new_date = get_release_info(RELEASE_URL)
 
-    if previous_date != new_date:
+    if previous_date != new_date or not os.path.exists(download_path):
         data["date"] = new_date
         with open(settings_file, "w") as file:
             json.dump(data, file, indent=4)

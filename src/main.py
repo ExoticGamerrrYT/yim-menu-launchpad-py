@@ -10,6 +10,8 @@ from kivy.clock import mainthread
 import ctypes
 import threading
 import updater
+import injector
+import os
 
 
 class MyApp(App):
@@ -52,6 +54,7 @@ class MyApp(App):
         )
 
         button1.bind(on_press=self.start_check_for_updates)
+        button2.bind(on_press=self.start_injection)
 
         # Add into layouts
         main_layout.add_widget(title_lbl)
@@ -89,6 +92,25 @@ class MyApp(App):
             self.show_popup("Everything up-to-date")
         else:
             self.show_popup("Updated!")
+
+    def start_injection(self, instance):
+        """
+        Start the injection in a new thread.
+        """
+        threading.Thread(target=self.injection).start()
+
+    def injection(self):
+        pid = injector.find_process_id(injector.PROCESS_NAME)
+        if pid == None:
+            self.show_popup("Couldn't find the process!")
+            return
+
+        exotic_folder = updater.check_dirs()[0]
+        dll_file = os.path.join(exotic_folder, "YimMenu.dll")
+        try:
+            injector.inject_dll(pid, dll_file)
+        except:
+            self.show_popup("Error injecting!")
 
     @mainthread
     def show_popup(self, message):
