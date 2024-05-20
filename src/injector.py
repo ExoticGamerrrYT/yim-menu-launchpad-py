@@ -13,4 +13,4 @@ def find_process_id(process_name):
 
 
 def inject_dll(pID, dll_path):
-    inject(pID, dll_path) # Uses pyinjector
+    inject(pID, dll_path)  # Uses pyinjector

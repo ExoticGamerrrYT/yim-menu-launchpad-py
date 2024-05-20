@@ -1,5 +1,4 @@
 .venv/
 /src/__pycache__/
 /src/build/
-/src/dist/
-main.spec
+YimMenu.Launchpad.spec

@@ -1,3 +1,7 @@
+"""
+While in src dir:
+Build command: pyinstaller --windowed --name YimMenu.Launchpad --icon=./images/yim-logo.ico main.py
+"""
 from kivy.app import App
 from kivy.core.window import Window
 from kivy.uix.label import Label
@@ -8,9 +12,9 @@ from kivy.uix.popup import Popup
 from kivy.clock import mainthread
 import ctypes
 import threading
+import os
 import updater
 import injector
-import os
 
 
 class MyApp(App):
@@ -104,7 +108,7 @@ class MyApp(App):
         This function calls the injector.py and its functions
         """
         pid = injector.find_process_id(injector.PROCESS_NAME)  # Get proc id
-        if pid == None:  # If there is no process called GTA5.exe
+        if pid is None:  # If there is no process called GTA5.exe
             self.show_popup("Couldn't find the process!")
             return
 
@@ -112,8 +116,8 @@ class MyApp(App):
         dll_file = os.path.join(exotic_folder, "YimMenu.dll")  # Make dll dir
         try:
             injector.inject_dll(pid, dll_file)
-        except:
-            self.show_popup("Error injecting!")
+        except Exception as e:
+            self.show_popup(f"Error injecting: {e}")
 
     @mainthread
     def show_popup(self, message):

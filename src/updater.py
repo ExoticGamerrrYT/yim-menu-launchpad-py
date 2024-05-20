@@ -34,7 +34,7 @@ def get_release_info(url):
         published_at = data["published_at"]
         return published_at
     else:
-        return None, None
+        return None
 
 
 def download_file(save_path, url):
@@ -51,7 +51,6 @@ def download_if_needed():
     it will open the settings file and get the value from the date key. Finally it compares the dates
     and if they are different it will update the value of the date key, save the new value and download the dll.
     """
-    check_dirs()
     download_folder, settings_file = check_dirs()
     download_path = os.path.join(download_folder, "YimMenu.dll")
     with open(settings_file, "r") as file:
