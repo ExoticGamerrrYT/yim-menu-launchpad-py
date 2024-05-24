@@ -12,12 +12,33 @@ Seeing this problem, I decided to make a launchpad for the menu with [Python](ht
 
 ## How to use
 
-To use the launchpad you have to download the latest version from the releases and execute the `.exe`.
-The first thing you have to do is click on `Update`, wait a second for the pop-up and if nothing goes wrong you can press `Inject` with the game open, obviously.
+In order to use the launchpad:
+
+1. Download from the [releases page](https://github.com/ExoticGamerrrYT/yim-menu-launchpad/releases/tag/releases).
+2. Make a folder anywhere you want to and add that folder to [Windows Defender exclusion list](https://support.microsoft.com/en-us/windows/add-an-exclusion-to-windows-security-811816c0-4dfd-af4a-47e4-c301afe13b26).
+3. Extract the .zip in that folder.
+4. When you execute the .exe the first thing you have to do is click on `Update`, wait a second for the pop-up and if nothing goes wrong you can press `Inject` with the game open, obviously.
+   > _You may want to make a shortcut to the desktop._
+
+## Contributing
+
+**Remember to contribute according to the [LICENSE](LICENSE).**
+
+I used Python `3.11.9`, so with that version installed, clone the repo, make a virtual enviroment and install the requirements:
+
+```bash
+git clone https://github.com/ExoticGamerrrYT/yim-menu-launchpad.git
+
+python -m venv venv
+
+pip install -r requirements.txt
+```
 
 ## License
 
-<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/ExoticGamerrrYT/yim-menu-launchpad">YimMenu Launcher</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/ExoticGamerrrYT">ExoticGamerrrYT</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-ND 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nd.svg?ref=chooser-v1" alt=""></a></p>
+[GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0/).
+
+Please give me credit.
 
 ## Contact
 
